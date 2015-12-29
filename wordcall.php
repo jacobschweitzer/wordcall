@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       WordCall
  * Plugin URI:        https://ijas.me/wordcall/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Make phone calls via Twilio.
  * Version:           1.0.0
  * Author:            Jacob Schweitzer
  * Author URI:        https://ijas.me/
