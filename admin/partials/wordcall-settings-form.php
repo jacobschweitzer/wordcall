@@ -25,27 +25,27 @@
 	<a href="https://www.twilio.com/user/account/voice/dev-tools/twiml-apps" target="_blank">Create TwiML app</a> 
 	<br />
 	For the Voice Request URL use this URL: <br />
-	<?php echo plugins_url() . '/wordcall/includes/dial_number.php'; ?>
+	<?php echo esc_url( plugins_url() . '/wordcall/includes/dial_number.php' ); ?>
 	</p>
 	<form method="post" name="twiliosettings" id="twiliosettings">
 
 		<label for="twilionumber">Twilio Phone Number</label>
-		<input type="text" name="twilionumber" value="<?php echo $twilio_api_settings['phonenumber']; ?>" />
+		<input type="text" name="twilionumber" value="<?php echo esc_attr( $twilio_api_settings['phonenumber'] ); ?>" />
 		<br />
 
 		<label for="twiliosid">Twilio SID</label>
-		<input type="text" name="twiliosid" value="<?php echo $twilio_api_settings['appsid']; ?>" />
+		<input type="text" name="twiliosid" value="<?php echo esc_attr( $twilio_api_settings['appsid'] ); ?>" />
 		<br />
 
 		<label for="twilioauthtoken">Twilio Auth Token</label>
-		<input type="text" name="twilioauthtoken" value="<?php echo $twilio_api_settings['authtoken']; ?>" />
+		<input type="text" name="twilioauthtoken" value="<?php echo esc_attr( $twilio_api_settings['authtoken'] ); ?>" />
 		<br />
 
 		<label for="twiliocapbailitytoken">Twilio Capability Token</label>
-		<input type="text" name="twiliocapbailitytoken" value="<?php echo $twilio_api_settings['captoken']; ?>" />
+		<input type="text" name="twiliocapbailitytoken" value="<?php echo esc_attr( $twilio_api_settings['captoken'] ); ?>" />
 		<br />
 
-
+		<?php wp_nonce_field( 'twilio_settings_nonce_action', 'twilio_settings_nonce_field' ); ?>
 
 		<input type="submit" value="Save" />
 	</form>

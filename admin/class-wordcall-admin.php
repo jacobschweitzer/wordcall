@@ -158,15 +158,21 @@ class Wordcall_Admin {
 	 * @since    1.0.0
 	 */
 	public function check_for_and_save_form_data() {
-		if ( isset( $_POST['twiliosid'] ) || isset( $_POST['twilioauthtoken'] ) || isset( $_POST['twiliocapbailitytoken'] ) ) {
-			$user_id = get_current_user_id();
-			$twilio_api_settings = array(
-				'appsid'		=> $_POST['twiliosid'],
-				'authtoken'		=> $_POST['twilioauthtoken'],
-				'captoken'		=> $_POST['twiliocapbailitytoken'],
-				'phonenumber'	=> $_POST['twilionumber'],
-			);
-			update_user_meta( $user_id, 'twilio_api_settings', $twilio_api_settings );
+		if ( isset( $_POST ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_POST['twilio_settings_nonce_field'] ) );
+			if ( ! wp_verify_nonce( $nonce, 'twilio_settings_nonce_action' ) ) {
+				return;
+			}
+			if ( isset( $_POST['twiliosid'] ) || isset( $_POST['twilioauthtoken'] ) || isset( $_POST['twiliocapbailitytoken'] ) || isset( $_POST['twilionumber'] ) ) {
+				$user_id = get_current_user_id();
+				$twilio_api_settings = array(
+					'appsid'		=> sanitize_text_field( wp_unslash( $_POST['twiliosid'] ) ),
+					'authtoken'		=> sanitize_text_field( wp_unslash( $_POST['twilioauthtoken'] ) ),
+					'captoken'		=> sanitize_text_field( wp_unslash( $_POST['twiliocapbailitytoken'] ) ),
+					'phonenumber'	=> sanitize_text_field( wp_unslash( $_POST['twilionumber'] ) ),
+				);
+				update_user_meta( $user_id, 'twilio_api_settings', $twilio_api_settings );
+			}
 		}
 	}
 }

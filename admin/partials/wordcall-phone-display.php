@@ -17,7 +17,7 @@
 	Number to call: <input type="text" name="tocall" id="tocall" value="">
 	<input type="button" name="call" id="call" value="Start Call"/>
 	<input type="button" name="hangup" id="hangup" value="Hangup Call" style="display:none;"/>
-	<input type="text" name="phonenumber" id="phonenumber" value="<?php echo $twilio_api_settings['phonenumber']; ?>" style="display:none;"/>
+	<input type="text" name="phonenumber" id="phonenumber" value="<?php echo esc_attr( $twilio_api_settings['phonenumber'] ); ?>" style="display:none;"/>
 	<div id="status">
 		Offline
 	</div>
