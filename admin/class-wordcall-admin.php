@@ -100,4 +100,60 @@ class Wordcall_Admin {
 
 	}
 
+	/**
+	 * Register the JavaScript for the admin area.
+	 *
+	 * @since    1.0.0
+	 */
+	public function create_settings_and_calling_page() {
+		add_users_page( 'WordCall', 'WordCall', 'read', 'wordcall', array( $this, 'show_settings_and_calling_content' ) );
+	}
+	/**
+	 * Show the Twilio API Settings and Calling content.
+	 *
+	 * @since    1.0.0
+	 */
+	public function show_settings_and_calling_content() {
+		include_once( 'partials/wordcall-admin-header.php' );
+		$this->check_for_and_save_form_data();
+		$twilio_api_settings = $this->check_for_twilio_api_settings();
+		if ( empty( $twilio_api_settings ) ) {
+			$twilio_api_settings = array(
+				'appsid'	=> '',
+				'authtoken'	=> '',
+				'captoken'	=> '',
+			);
+			include_once( 'partials/wordcall-settings-form.php' );
+		} else {
+			include_once( 'partials/wordcall-phone-display.php' );
+			include_once( 'partials/wordcall-settings-form.php' );
+		}
+		include_once( 'partials/wordcall-admin-footer.php' );
+	}
+	/**
+	 * Check for Twilio API Settings.
+	 *
+	 * @since    1.0.0
+	 */
+	public function check_for_twilio_api_settings() {
+		$user_id = get_current_user_id();
+		$user_twilio_api_settings = get_user_meta( $user_id, 'twilio_api_settings', true );
+		return $user_twilio_api_settings;
+	}
+	/**
+	 * Check for settings form data and save if it is there.
+	 *
+	 * @since    1.0.0
+	 */
+	public function check_for_and_save_form_data() {
+		if ( isset( $_POST['twiliosid'] ) || isset( $_POST['twilioauthtoken'] ) || isset( $_POST['twiliocapbailitytoken'] ) ) {
+			$user_id = get_current_user_id();
+			$twilio_api_settings = array(
+				'appsid'	=> $_POST['twiliosid'],
+				'authtoken'	=> $_POST['twilioauthtoken'],
+				'captoken'	=> $_POST['twiliocapbailitytoken'],
+			);
+			update_user_meta( $user_id, 'twilio_api_settings', $twilio_api_settings );
+		}
+	}
 }
