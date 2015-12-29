@@ -14,9 +14,10 @@
 ?>
 	<h2>Make Calls</h2>
 	<!-- @start snippet -->
-	Number to call: <input type="text" id="tocall" value="">
-	<input type="button" id="call" value="Start Call"/>
-	<input type="button" id="hangup" value="Hangup Call" style="display:none;"/>
+	Number to call: <input type="text" name="tocall" id="tocall" value="">
+	<input type="button" name="call" id="call" value="Start Call"/>
+	<input type="button" name="hangup" id="hangup" value="Hangup Call" style="display:none;"/>
+	<input type="text" name="phonenumber" id="phonenumber" value="<?php echo $twilio_api_settings['phonenumber']; ?>" style="display:none;"/>
 	<div id="status">
 		Offline
 	</div>

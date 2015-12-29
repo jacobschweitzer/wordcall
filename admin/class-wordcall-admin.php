@@ -95,8 +95,8 @@ class Wordcall_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wordcall-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name . 'twilio-js-lib', '//static.twilio.com/libs/twiliojs/1.2/twilio.min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wordcall-admin.js', array( 'jquery', $this->plugin_name . 'twilio-js-lib' ), $this->version, true );
 
 	}
 
@@ -119,12 +119,24 @@ class Wordcall_Admin {
 		$twilio_api_settings = $this->check_for_twilio_api_settings();
 		if ( empty( $twilio_api_settings ) ) {
 			$twilio_api_settings = array(
-				'appsid'	=> '',
-				'authtoken'	=> '',
-				'captoken'	=> '',
+				'appsid'		=> '',
+				'authtoken'		=> '',
+				'captoken'		=> '',
+				'phonenumber'	=> '',
 			);
 			include_once( 'partials/wordcall-settings-form.php' );
 		} else {
+			include ABSPATH . 'wp-content/plugins/wordcall/includes/twilio-php/Services/Twilio/Capability.php';
+			$accountSid = $twilio_api_settings['appsid'];
+			$authToken  = $twilio_api_settings['authtoken'];
+
+			$token = new Services_Twilio_Capability( $accountSid, $authToken );
+			$token->allowClientOutgoing( $twilio_api_settings['captoken'] );
+			$translation_array = array(
+				'twiliotoken' => $token->generateToken(),
+			);
+			wp_localize_script( $this->plugin_name, 'wordcall', $translation_array );
+
 			include_once( 'partials/wordcall-phone-display.php' );
 			include_once( 'partials/wordcall-settings-form.php' );
 		}
@@ -149,9 +161,10 @@ class Wordcall_Admin {
 		if ( isset( $_POST['twiliosid'] ) || isset( $_POST['twilioauthtoken'] ) || isset( $_POST['twiliocapbailitytoken'] ) ) {
 			$user_id = get_current_user_id();
 			$twilio_api_settings = array(
-				'appsid'	=> $_POST['twiliosid'],
-				'authtoken'	=> $_POST['twilioauthtoken'],
-				'captoken'	=> $_POST['twiliocapbailitytoken'],
+				'appsid'		=> $_POST['twiliosid'],
+				'authtoken'		=> $_POST['twilioauthtoken'],
+				'captoken'		=> $_POST['twiliocapbailitytoken'],
+				'phonenumber'	=> $_POST['twilionumber'],
 			);
 			update_user_meta( $user_id, 'twilio_api_settings', $twilio_api_settings );
 		}
