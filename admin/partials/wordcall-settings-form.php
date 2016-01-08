@@ -38,14 +38,14 @@
 		<br /><br />
 
 		<h4>TwiML App SID</h4>
-		The TwiML App SID you can get by making a TwiML app here: 
+		Get a TwiML App SID by making a TwiML app here: 
 		<br />
 		<a href="https://www.twilio.com/user/account/voice/dev-tools/twiml-apps" target="_blank">Create TwiML app</a> 
 		<br />
 		For the Voice Request URL use this URL: <br />
 		<?php echo esc_url( plugins_url() . '/wordcall/includes/dial_number.php' ); ?>
 		<br/>
-		<label for="twiliocapbailitytoken"><strong>Twilio Capability Token</strong></label>
+		<label for="twiliocapbailitytoken"><strong>TwiML App SID</strong></label>
 		<input type="text" name="twiliocapbailitytoken" value="<?php echo esc_attr( $twilio_api_settings['captoken'] ); ?>" />
 		<br />
 
@@ -53,3 +53,5 @@
 
 		<input type="submit" value="Save" />
 	</form>
+<p><strong>After you've created the TwiML App, go to your <a href="https://www.twilio.com/user/account/voice/phone-numbers" target="_blank">Twilio phone numbers</a> and click on the phone number you configured the app for. 
+In the Voice section select the "TwiML App" option for "Configure with" then select your TwiML App from the dropdown box and click Save. </strong></p>

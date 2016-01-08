@@ -12,7 +12,7 @@ Make phone calls using Twilio.
 
 == Description ==
 
-Make phone calls using the Twilio API, which for most people will be cheaper than using Skype for buying a local number to make calls with. 
+Make and receive phone calls using the Twilio API, which for most people will be cheaper than using Skype for buying a local number to make calls with. 
 
 == Installation ==
 
@@ -26,3 +26,7 @@ Make phone calls using the Twilio API, which for most people will be cheaper tha
 
 = 1.0 =
 * Basic calling functionality in place. 
+
+== Known Issues ==
+
+* Google Chrome requires a secure (SSL) page for the plugin to work
