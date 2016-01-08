@@ -132,6 +132,7 @@ class Wordcall_Admin {
 
 			$token = new Services_Twilio_Capability( $accountSid, $authToken );
 			$token->allowClientOutgoing( $twilio_api_settings['captoken'] );
+			$token->allowClientIncoming( 'wordcall' );
 			$translation_array = array(
 				'twiliotoken' => $token->generateToken(),
 			);
