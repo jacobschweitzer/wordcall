@@ -151,8 +151,10 @@ class Wordcall {
 
 		$plugin_admin = new Wordcall_Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		if ( isset( $_REQUEST['page'] ) && 'wordcall' === $_REQUEST['page'] ) {
+			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		}
 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'create_settings_and_calling_page' );
 

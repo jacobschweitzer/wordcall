@@ -14,7 +14,7 @@
 ?>
 	<br />
 	<h2>Settings</h2>
-	<p>Here you will need to enter your Twilio phone number, accountSID, authorization token, and capability token.
+	<p>Here you will need to enter your Twilio phone number, accountSID, authorization token, and App SID.
 	<br /><br />
 	</p>
 	<form method="post" name="twiliosettings" id="twiliosettings">
