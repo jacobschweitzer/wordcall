@@ -126,7 +126,7 @@ class Wordcall_Admin {
 			);
 			include_once( 'partials/wordcall-settings-form.php' );
 		} else {
-			include plugin_dir_path( __FILE__ ) . 'includes/twilio-php/Services/Twilio/Capability.php';
+			include plugin_dir_path( dirname( __FILE__ ) ) . 'includes/twilio-php/Services/Twilio/Capability.php';
 			$accountSid = $twilio_api_settings['appsid'];
 			$authToken  = $twilio_api_settings['authtoken'];
 
